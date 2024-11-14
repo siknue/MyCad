@@ -64,6 +64,7 @@ namespace MyCad
                     //描く対象の形状によって分岐
                     //0:点
                     //1:ライン(+端点)
+                    //2:円
                     switch (DrawingToolIndex)
                     {
                         case 0:
@@ -76,6 +77,7 @@ namespace MyCad
                                 lines.Add(new Entities.Line(firstPoint, currentPosition));
                                 points.Add(new Entities.Point(currentPosition));
                                 firstPoint = currentPosition;
+                                
                             }
                             else
                             {
@@ -84,8 +86,8 @@ namespace MyCad
                                 isUnderDrawing = true;
                             }
                             break;
-                        case 2:
 
+                        case 2:
                             if (isUnderDrawing)
                             {
                                 double r = firstPoint.DistanceFrom(currentPosition);
@@ -98,9 +100,10 @@ namespace MyCad
                                 isUnderDrawing = true;
                             }
                             break;
-
-
                     }
+
+                    
+
                     drawing.Refresh();
                 }
             }
@@ -163,6 +166,20 @@ namespace MyCad
                     }
                     break;
             }
+            if (lines.Count > 0)
+            {
+                for (int i=0 ; i < lines.Count; i++)
+                {
+                    for(int j = i; j<lines.Count;j++)
+                    {
+                        var line1 = lines[i];
+                        var line2 = lines[j];
+                        Vector3 v = Methods.Methods.LineLineIntersection(line1, line2, extended:false);
+                        Entities.Point p = new Entities.Point(v);
+                        e.Graphics.DrawPoint(new Pen(Color.Red, 0), p);
+                    }
+                }
+            }
         }
 
 
@@ -185,6 +202,19 @@ namespace MyCad
             DrawingToolIndex = 2;
             IsDrawingToolActive = true;
             drawing.Cursor = Cursors.Cross;
+        }
+
+        private void CancelAll()
+        {
+            DrawingToolIndex = -1;
+            IsDrawingToolActive = false;
+            drawing.Cursor = Cursors.Default;
+            isUnderDrawing = false;
+
+        }
+        private void cancelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CancelAll();
         }
     }
 }

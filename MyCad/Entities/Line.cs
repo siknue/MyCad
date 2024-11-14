@@ -14,7 +14,15 @@ namespace MyCad.Entities
         public Vector3 endPoint { get; set; }
         public double Thickness { get; set; }
 
-
+        public double Length { 
+            get 
+            {
+                double dx = endPoint.X - startPoint.X;
+                double dy = endPoint.Y - startPoint.Y;
+                double dz = endPoint.Z - startPoint.Z;
+                return Math.Sqrt(dx * dx + dy * dy + dz*dz);
+            } 
+        }
         public Line(Vector3 start, Vector3 end)
         {
             this.startPoint = start;

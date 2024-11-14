@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.drawing = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pointBtn = new System.Windows.Forms.Button();
             this.LineBtn = new System.Windows.Forms.Button();
             this.CircleBtn = new System.Windows.Forms.Button();
+            this.MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cancelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.drawing)).BeginInit();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // drawing
@@ -42,7 +46,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.drawing.BackColor = System.Drawing.Color.White;
-            this.drawing.Location = new System.Drawing.Point(0, 1);
+            this.drawing.ContextMenuStrip = this.MenuStrip;
+            this.drawing.Location = new System.Drawing.Point(12, 10);
             this.drawing.Name = "drawing";
             this.drawing.Size = new System.Drawing.Size(1222, 738);
             this.drawing.TabIndex = 0;
@@ -99,6 +104,21 @@
             this.CircleBtn.UseVisualStyleBackColor = true;
             this.CircleBtn.Click += new System.EventHandler(this.CircleBtn_Click);
             // 
+            // MenuStrip
+            // 
+            this.MenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cancelToolStripMenuItem});
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(181, 48);
+            // 
+            // cancelToolStripMenuItem
+            // 
+            this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cancelToolStripMenuItem.Text = "Cancel";
+            this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
+            // 
             // GraphicForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -115,6 +135,7 @@
             this.Name = "GraphicForm";
             this.Text = "GraphicForm";
             ((System.ComponentModel.ISupportInitialize)(this.drawing)).EndInit();
+            this.MenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,6 +148,8 @@
         private System.Windows.Forms.Button pointBtn;
         private System.Windows.Forms.Button LineBtn;
         private System.Windows.Forms.Button CircleBtn;
+        private System.Windows.Forms.ContextMenuStrip MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem cancelToolStripMenuItem;
     }
 }
 
