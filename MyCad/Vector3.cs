@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyCad
 {
@@ -35,6 +31,15 @@ namespace MyCad
         public static Vector3 Zero
         {
             get { return new Vector3(0.0, 0.0, 0.0); }
+        }
+
+        public double DistanceFrom(Vector3 v)
+        {
+            double dx = v.X - X;
+            double dy = v.Y - Y;
+            double dz = v.Z - Z;
+
+            return Math.Sqrt(dx * dx + dy * dy + dz * dz);
         }
     }
 }

@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pointBtn = new System.Windows.Forms.Button();
             this.LineBtn = new System.Windows.Forms.Button();
+            this.CircleBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.drawing)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,12 +86,26 @@
             this.LineBtn.UseVisualStyleBackColor = true;
             this.LineBtn.Click += new System.EventHandler(this.button1_Click);
             // 
+            // CircleBtn
+            // 
+            this.CircleBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CircleBtn.Location = new System.Drawing.Point(1247, 112);
+            this.CircleBtn.Name = "CircleBtn";
+            this.CircleBtn.Size = new System.Drawing.Size(295, 44);
+            this.CircleBtn.TabIndex = 4;
+            this.CircleBtn.Text = "Circle";
+            this.CircleBtn.UseVisualStyleBackColor = true;
+            this.CircleBtn.Click += new System.EventHandler(this.CircleBtn_Click);
+            // 
             // GraphicForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1670, 967);
+            this.Controls.Add(this.CircleBtn);
             this.Controls.Add(this.LineBtn);
             this.Controls.Add(this.pointBtn);
             this.Controls.Add(this.label1);
@@ -111,6 +126,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button pointBtn;
         private System.Windows.Forms.Button LineBtn;
+        private System.Windows.Forms.Button CircleBtn;
     }
 }
 

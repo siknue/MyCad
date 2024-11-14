@@ -10,15 +10,17 @@ namespace MyCad
         //geometry lists
         private List<Entities.Point> points = new List<Entities.Point>();
         private List<Entities.Line> lines = new List<Entities.Line>();
+        private List<Entities.Circle> circles = new List<Entities.Circle>();
 
         //locations
         private Vector3 currentPosition;
         private Vector3 firstPoint;
 
         //flags
-        private int DrawIndex = -1;
-        private bool active_drawing = false;
-        private int ClickNum = 1;
+        private int DrawingToolIndex = -1;
+        private bool IsDrawingToolActive = false;
+        private bool isUnderDrawing = false;
+
 
 
         public GraphicForm()
@@ -30,6 +32,7 @@ namespace MyCad
         {
             currentPosition = PointToCartesian(e.Location);
             label1.Text = string.Format("{0,0:F3},{1,0:F3}", currentPosition.X, currentPosition.Y);
+            drawing.Refresh();
         }
 
         //get screen dpi
@@ -56,40 +59,49 @@ namespace MyCad
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (active_drawing)
+                if (IsDrawingToolActive)
                 {
                     //描く対象の形状によって分岐
                     //0:点
                     //1:ライン(+端点)
-                    switch (DrawIndex)
+                    switch (DrawingToolIndex)
                     {
                         case 0:
                             points.Add(new Entities.Point(currentPosition));
                             break;
 
                         case 1:
-                            switch (ClickNum)
+                            if (isUnderDrawing)
                             {
-                                case 1:
-                                    firstPoint = currentPosition;
-                                    points.Add(new Entities.Point(currentPosition));
-                                    ClickNum++;
-                                    break;
+                                lines.Add(new Entities.Line(firstPoint, currentPosition));
+                                points.Add(new Entities.Point(currentPosition));
+                                firstPoint = currentPosition;
+                            }
+                            else
+                            {
+                                firstPoint = currentPosition;
+                                points.Add(new Entities.Point(currentPosition));
+                                isUnderDrawing = true;
+                            }
+                            break;
+                        case 2:
 
-                                case 2:
-                                    lines.Add(new Entities.Line(firstPoint, currentPosition));
-                                    points.Add(new Entities.Point(currentPosition));
-                                    firstPoint = currentPosition;
-                                    //ClickNum = 1;
-                                    break;
+                            if (isUnderDrawing)
+                            {
+                                double r = firstPoint.DistanceFrom(currentPosition);
+                                circles.Add(new Entities.Circle(firstPoint, r));
+                                isUnderDrawing = false;
+                            }
+                            else
+                            {
+                                firstPoint = currentPosition;
+                                isUnderDrawing = true;
                             }
                             break;
 
+
                     }
-
                     drawing.Refresh();
-
-
                 }
             }
         }
@@ -98,6 +110,7 @@ namespace MyCad
         {
             e.Graphics.SetParameters(Pixel_to_Mm(drawing.Height));
             Pen pen = new Pen(Color.Blue, 0.1f);
+            Pen extpen = new Pen(Color.Gray, 0.1f);
 
             // draw all points
             if (points.Count > 0)
@@ -116,22 +129,62 @@ namespace MyCad
                     e.Graphics.DrawLine(pen, line);
                 }
             }
+
+            // Draw all circles
+            if (circles.Count > 0)
+            {
+                foreach (Entities.Circle circle in circles)
+                {
+                    e.Graphics.DrawCircle(pen, circle);
+                }
+            }
+
+            //draw line の最中に線を描画する
+            switch (DrawingToolIndex)
+            {
+                //線の描画モード中
+                case 1:
+                    if (isUnderDrawing)
+                    {
+                        Entities.Line line = new Entities.Line(firstPoint, currentPosition);
+                        e.Graphics.DrawLine(extpen, line);
+                    }
+                    break;
+
+                case 2:
+                    if (isUnderDrawing)
+                    {
+                        double r = firstPoint.DistanceFrom(currentPosition);
+                        Entities.Circle circle = new Entities.Circle(firstPoint, r);
+                        e.Graphics.DrawCircle(extpen, circle);
+
+                        Entities.Line line = new Entities.Line(firstPoint, currentPosition);
+                        e.Graphics.DrawLine(extpen, line);
+                    }
+                    break;
+            }
         }
 
 
         private void pointBtn_Click(object sender, EventArgs e)
         {
-            DrawIndex = 0;
-            active_drawing = true;
+            DrawingToolIndex = 0;
+            IsDrawingToolActive = true;
             drawing.Cursor = Cursors.Cross;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DrawIndex = 1;
-            active_drawing = true;
+            DrawingToolIndex = 1;
+            IsDrawingToolActive = true;
             drawing.Cursor = Cursors.Cross;
         }
 
+        private void CircleBtn_Click(object sender, EventArgs e)
+        {
+            DrawingToolIndex = 2;
+            IsDrawingToolActive = true;
+            drawing.Cursor = Cursors.Cross;
+        }
     }
 }

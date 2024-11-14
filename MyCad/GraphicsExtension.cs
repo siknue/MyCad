@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MyCad
+﻿namespace MyCad
 {
     internal static class GraphicsExtension
     {
@@ -36,6 +29,18 @@ namespace MyCad
         {
             g.SetTransform();
             g.DrawLine(pen, line.startPoint.ToPointF, line.endPoint.ToPointF);
+            g.ResetTransform();
+        }
+
+        public static void DrawCircle(this System.Drawing.Graphics g, System.Drawing.Pen pen, Entities.Circle circle)
+        {
+            //左上隅の座標が基準
+            float x = (float)(circle.vector3.X - circle.radius);
+            float y = (float)(circle.vector3.Y - circle.radius);
+            float w = (float)(circle.Diameter);
+
+            g.SetTransform();
+            g.DrawEllipse(pen, x, y, w, w);
             g.ResetTransform();
         }
     }
