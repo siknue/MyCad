@@ -9,7 +9,7 @@ namespace MyCad.Entities
     public class Point
     {
         public Vector3 Position { get; set; }
-        private double Thickness { get; set; }
+        public double Thickness { get; set; }
         
 
         public Point()

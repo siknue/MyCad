@@ -31,5 +31,12 @@ namespace MyCad
             g.DrawEllipse(pen, p.X - 1, p.Y - 1, 2, 2);
             g.ResetTransform();
         }
+
+        public static void DrawLine(this System.Drawing.Graphics g, System.Drawing.Pen pen, Entities.Line line)
+        {
+            g.SetTransform();
+            g.DrawLine(pen, line.startPoint.ToPointF, line.endPoint.ToPointF);
+            g.ResetTransform();
+        }
     }
 }

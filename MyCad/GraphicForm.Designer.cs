@@ -31,6 +31,7 @@
             this.drawing = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pointBtn = new System.Windows.Forms.Button();
+            this.LineBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.drawing)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,19 +72,33 @@
             this.pointBtn.UseVisualStyleBackColor = true;
             this.pointBtn.Click += new System.EventHandler(this.pointBtn_Click);
             // 
+            // LineBtn
+            // 
+            this.LineBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LineBtn.Location = new System.Drawing.Point(1247, 62);
+            this.LineBtn.Name = "LineBtn";
+            this.LineBtn.Size = new System.Drawing.Size(295, 44);
+            this.LineBtn.TabIndex = 3;
+            this.LineBtn.Text = "Line";
+            this.LineBtn.UseVisualStyleBackColor = true;
+            this.LineBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
             // GraphicForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1670, 967);
+            this.Controls.Add(this.LineBtn);
             this.Controls.Add(this.pointBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.drawing);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GraphicForm";
-            this.Text = "Form1";
+            this.Text = "GraphicForm";
             ((System.ComponentModel.ISupportInitialize)(this.drawing)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -95,6 +110,7 @@
         private System.Windows.Forms.PictureBox drawing;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button pointBtn;
+        private System.Windows.Forms.Button LineBtn;
     }
 }
 
