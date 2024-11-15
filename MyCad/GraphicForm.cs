@@ -216,5 +216,10 @@ namespace MyCad
         {
             CancelAll();
         }
+
+        private void GraphicForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
